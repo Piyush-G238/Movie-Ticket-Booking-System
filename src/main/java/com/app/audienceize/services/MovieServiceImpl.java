@@ -5,6 +5,7 @@ import com.app.audienceize.dtos.responses.MovieResponse;
 import com.app.audienceize.entities.Movie;
 import com.app.audienceize.enums.Genre;
 import com.app.audienceize.repositories.MovieRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,16 @@ public class MovieServiceImpl implements MovieService{
     public List<MovieResponse> getMoviesByGenre(Genre genre) {
         List<Movie> movies = movieRepository.findByGenre(genre);
         return movies.stream().map(this::toResponse).toList();
+    }
+
+    @Override
+    @Transactional
+    public String deleteMovieByTitle(String title) {
+        if (movieRepository.existsByTitle(title)){
+            movieRepository.deleteByTitle(title);
+            return title+" is removed.";
+        }
+        return "This Movie is currently not present";
     }
 
     private Movie toEntity(MovieRequest req) {

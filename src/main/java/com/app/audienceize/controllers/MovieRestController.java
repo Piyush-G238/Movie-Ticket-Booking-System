@@ -46,4 +46,9 @@ public class MovieRestController {
             return new ResponseEntity<>(body, HttpStatusCode.valueOf(404));
         return ResponseEntity.ok(body);
     }
+    @DeleteMapping("/{title}")
+    public ResponseEntity<String> deleteMovieByTitle(@PathVariable(name = "title") String title) {
+        String body = movieService.deleteMovieByTitle(title);
+        return ResponseEntity.ok(body);
+    }
 }

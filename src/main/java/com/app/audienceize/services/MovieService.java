@@ -10,4 +10,5 @@ public interface MovieService {
     public String addMovie(MovieRequest request);
     public MovieResponse getMovieByTitle(String title);
     public List<MovieResponse> getMoviesByGenre(Genre genre);
+    public String deleteMovieByTitle(String title);
 }

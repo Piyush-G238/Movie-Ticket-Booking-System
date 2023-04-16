@@ -1,6 +1,7 @@
 package com.app.audienceize.controllers;
 
 import com.app.audienceize.dtos.requests.MovieRequest;
+import com.app.audienceize.dtos.responses.MovieResponse;
 import com.app.audienceize.services.MovieService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,11 @@ public class MovieRestController {
             return new ResponseEntity<>(body, HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(body, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<MovieResponse> getMovieByTitle(@RequestParam(name = "title") String title) {
+        MovieResponse body = movieService.getMovieByTitle(title);
+        return ResponseEntity.ok(body);
     }
 }

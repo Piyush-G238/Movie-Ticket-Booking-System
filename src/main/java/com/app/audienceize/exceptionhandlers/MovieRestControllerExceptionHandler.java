@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestControllerAdvice
 public class MovieRestControllerExceptionHandler {
@@ -53,5 +50,13 @@ public class MovieRestControllerExceptionHandler {
         map.put("status", "400 Bad request");
         map.put("timestamp", new Date().toString());
         return new ResponseEntity<>(map, HttpStatusCode.valueOf(400));
+    }
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<Map<String, String>> noSuchElementExceptionHandler(NoSuchElementException exception) {
+        Map<String, String> map = new HashMap<>();
+        map.put("message", "This movie is currently not present");
+        map.put("status", "404 Not found");
+        map.put("timestamp", new Date().toString());
+        return new ResponseEntity<>(map, HttpStatusCode.valueOf(404));
     }
 }

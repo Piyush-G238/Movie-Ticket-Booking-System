@@ -7,6 +7,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
@@ -58,5 +59,13 @@ public class MovieRestControllerExceptionHandler {
         map.put("status", "404 Not found");
         map.put("timestamp", new Date().toString());
         return new ResponseEntity<>(map, HttpStatusCode.valueOf(404));
+    }
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Map<String, String>> methodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException exception) {
+        Map<String, String> map = new HashMap<>();
+        map.put("message", exception.getMessage());
+        map.put("status", "400 Bad request");
+        map.put("timestamp", new Date().toString());
+        return new ResponseEntity<>(map, HttpStatusCode.valueOf(400));
     }
 }

@@ -3,13 +3,17 @@ package com.app.audienceize.services;
 import com.app.audienceize.dtos.requests.MovieRequest;
 import com.app.audienceize.dtos.responses.MovieResponse;
 import com.app.audienceize.entities.Movie;
+import com.app.audienceize.enums.Genre;
 import com.app.audienceize.repositories.MovieRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -31,8 +35,14 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public MovieResponse getMovieByTitle(String title) {
-        Movie movie = movieRepository.findByTitle(title).get();
+        Movie movie = movieRepository.findByTitle(title).orElseThrow(NoSuchElementException::new);
         return toResponse(movie);
+    }
+
+    @Override
+    public List<MovieResponse> getMoviesByGenre(Genre genre) {
+        List<Movie> movies = movieRepository.findByGenre(genre);
+        return movies.stream().map(this::toResponse).toList();
     }
 
     private Movie toEntity(MovieRequest req) {

@@ -60,6 +60,24 @@ public class ReviewServiceImpl implements ReviewService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public String updateReview(ReviewRequest request, String reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow();
+        review.setRating(request.getRating());
+        review.setComment(request.getComment());
+        reviewRepository.save(review);
+
+        Movie movie = movieRepository.findByTitle(request.getMovieTitle()).orElseThrow();
+        List<Review> reviews = movie.getReviews();
+        Double sum = 0.0;
+        for (Review rev: reviews) {
+            sum += rev.getRating();
+        }
+        movie.setRatings((double) Math.round((sum/ reviews.size())*100) / 100);
+        movieRepository.save(movie);
+        return "Hey, your review has been updated";
+    }
+
     private Review toEntity(ReviewRequest request) {
         return Review.builder()
                 .id(UUID.randomUUID().toString())

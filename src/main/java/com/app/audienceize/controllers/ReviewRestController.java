@@ -27,4 +27,9 @@ public class ReviewRestController {
         List<ReviewResponse> responses = reviewService.getTop5ReviewsByMovieTitle(title);
         return ResponseEntity.ok(responses);
     }
+
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<String> updateReview(@PathVariable String reviewId, @Valid @RequestBody ReviewRequest request) {
+        return ResponseEntity.ok(reviewService.updateReview(request, reviewId));
+    }
 }

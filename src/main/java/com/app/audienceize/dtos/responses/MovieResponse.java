@@ -12,5 +12,6 @@ public class MovieResponse {
     private String id;
     private String title;
     private Genre genre;
+    private Double rating;
     private LocalDate releasedOn;
 }

@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -70,6 +69,7 @@ public class MovieServiceImpl implements MovieService{
                 .id(movie.getMovieId())
                 .title(movie.getTitle())
                 .genre(movie.getGenre())
+                .rating(movie.getRatings())
                 .releasedOn(movie.getReleasedOn())
                 .build();
     }

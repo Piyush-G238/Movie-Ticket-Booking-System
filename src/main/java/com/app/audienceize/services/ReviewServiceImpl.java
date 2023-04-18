@@ -78,6 +78,16 @@ public class ReviewServiceImpl implements ReviewService{
         return "Hey, your review has been updated";
     }
 
+    @Override
+    public String deleteReview(String reviewId) {
+        if (reviewRepository.existsById(reviewId)) {
+            reviewRepository.deleteById(reviewId);
+            return "Hey, your review has been removed.";
+        }
+        else
+            throw new NoSuchElementException("This review is not available");
+    }
+
     private Review toEntity(ReviewRequest request) {
         return Review.builder()
                 .id(UUID.randomUUID().toString())

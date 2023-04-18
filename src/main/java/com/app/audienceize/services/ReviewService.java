@@ -9,4 +9,5 @@ public interface ReviewService {
     public String addReview(ReviewRequest request);
     public List<ReviewResponse> getTop5ReviewsByMovieTitle(String movieTitle);
     public String updateReview(ReviewRequest request, String reviewId);
+    public String deleteReview(String reviewId);
 }

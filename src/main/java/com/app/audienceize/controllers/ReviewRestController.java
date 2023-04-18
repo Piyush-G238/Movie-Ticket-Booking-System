@@ -32,4 +32,9 @@ public class ReviewRestController {
     public ResponseEntity<String> updateReview(@PathVariable String reviewId, @Valid @RequestBody ReviewRequest request) {
         return ResponseEntity.ok(reviewService.updateReview(request, reviewId));
     }
+
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable String reviewId) {
+        return ResponseEntity.ok(reviewService.deleteReview(reviewId));
+    }
 }

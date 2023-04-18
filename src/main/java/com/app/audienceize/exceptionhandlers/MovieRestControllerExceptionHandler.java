@@ -55,7 +55,7 @@ public class MovieRestControllerExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Map<String, String>> noSuchElementExceptionHandler(NoSuchElementException exception) {
         Map<String, String> map = new HashMap<>();
-        map.put("message", "This movie is currently not present");
+        map.put("message", exception.getMessage());
         map.put("status", "404 Not found");
         map.put("timestamp", new Date().toString());
         return new ResponseEntity<>(map, HttpStatusCode.valueOf(404));

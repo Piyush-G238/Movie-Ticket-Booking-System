@@ -48,16 +48,14 @@ public class ReviewServiceImpl implements ReviewService{
         if (reviews.size() == 0) {
             throw new NoSuchElementException("Reviews are not available for the given movie title");
         }
-        List<Review> newReviewList = null;
-        if (reviews.size() <= 5){
-            newReviewList = reviews;
-        } else{
-            newReviewList = reviews.subList(0, 6);
+        reviews.sort((review1, review2) -> {
+            return (int) (review2.getRating() - review1.getRating());
+        });
+        List<ReviewResponse> reviewResponses = reviews.stream().map(this::toResponse).toList();
+        if (reviewResponses.size() <= 5){
+            return reviewResponses;
         }
-        return newReviewList.stream()
-                .map(this::toResponse)
-                .sorted((r1, r2) -> (int) (r2.getRating() - r1.getRating()))
-                .collect(Collectors.toList());
+       return reviewResponses.subList(0, 6);
     }
 
     @Override

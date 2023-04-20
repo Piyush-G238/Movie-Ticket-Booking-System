@@ -38,7 +38,7 @@ public class MovieRestControllerExceptionHandler {
     @ExceptionHandler(DateTimeParseException.class)
     public ResponseEntity<Map<String, String>> dateTimeParseExceptionHandler(DateTimeParseException exception) {
         Map<String, String> map = new HashMap<>();
-        map.put("message", "Date should be in the format (yyyy-mm-dd)");
+        map.put("message", exception.getMessage());
         map.put("status", "500 internal server error");
         map.put("timestamp", new Date().toString());
         return new ResponseEntity<>(map, HttpStatusCode.valueOf(500));

@@ -32,17 +32,12 @@ public class Movie {
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<Show> shows;
+
     public void addReview(Review review) {
         if (reviews == null)
             reviews = new ArrayList<>();
         reviews.add(review);
-    }
-
-    public void removeReview(Review review) {
-        if (reviews.size() != 0) {
-            if (reviews.contains(review)) {
-                reviews.remove(review);
-            }
-        }
     }
 }

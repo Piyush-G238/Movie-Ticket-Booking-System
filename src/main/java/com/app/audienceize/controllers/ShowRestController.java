@@ -29,4 +29,9 @@ public class ShowRestController {
         List<ShowResponse> responses = showService.getShowsByTheatre(name);
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{showId}")
+    public ResponseEntity<String> removeShow(@PathVariable String showId) {
+        return ResponseEntity.ok(showService.removeShow(showId));
+    }
 }

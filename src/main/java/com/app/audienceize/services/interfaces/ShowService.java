@@ -8,4 +8,5 @@ import java.util.List;
 public interface ShowService {
     public String addShow(ShowRequest showRequest);
     public List<ShowResponse> getShowsByTheatre(String theatreName);
+    public String removeShow(String showId);
 }

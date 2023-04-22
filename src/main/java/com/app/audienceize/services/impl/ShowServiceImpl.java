@@ -55,6 +55,15 @@ public class ShowServiceImpl implements ShowService {
         return runningShows.stream().map(this::toResponse).toList();
     }
 
+    @Override
+    public String removeShow(String showId) {
+        if(showRepository.existsById(showId)) {
+            showRepository.deleteById(showId);
+            return "Your show has been removed from the application";
+        }
+        throw new NoSuchElementException("This show is not available in the application");
+    }
+
     private Show toEntity(ShowRequest showRequest) {
         return Show.builder()
                 .showId(UUID.randomUUID().toString())

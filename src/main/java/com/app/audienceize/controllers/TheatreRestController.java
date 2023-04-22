@@ -2,7 +2,7 @@ package com.app.audienceize.controllers;
 
 import com.app.audienceize.dtos.requests.TheatreRequest;
 import com.app.audienceize.dtos.responses.TheatreResponse;
-import com.app.audienceize.services.TheatreService;
+import com.app.audienceize.services.interfaces.TheatreService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,9 +1,10 @@
-package com.app.audienceize.services;
+package com.app.audienceize.services.impl;
 
 import com.app.audienceize.dtos.requests.TheatreRequest;
 import com.app.audienceize.dtos.responses.TheatreResponse;
 import com.app.audienceize.entities.Theatre;
 import com.app.audienceize.repositories.TheatreRepository;
+import com.app.audienceize.services.interfaces.TheatreService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class TheatreServiceImpl implements TheatreService{
+public class TheatreServiceImpl implements TheatreService {
     @Autowired
     private TheatreRepository theatreRepository;
 

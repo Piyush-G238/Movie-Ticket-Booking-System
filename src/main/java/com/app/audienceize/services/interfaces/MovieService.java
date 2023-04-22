@@ -1,4 +1,4 @@
-package com.app.audienceize.services;
+package com.app.audienceize.services.interfaces;
 
 import com.app.audienceize.dtos.requests.MovieRequest;
 import com.app.audienceize.dtos.responses.MovieResponse;

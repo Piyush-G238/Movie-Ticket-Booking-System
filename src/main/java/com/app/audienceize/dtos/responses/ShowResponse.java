@@ -10,9 +10,9 @@ import java.util.Date;
 @Builder
 public class ShowResponse {
     private String id;
-    private String movieTitle;
-    private String theatreName;
     private LocalTime timing;
     private Date createdAt;
     private Date updatedAt;
+    private MovieResponse movie;
+    private TheatreResponse theatre;
 }

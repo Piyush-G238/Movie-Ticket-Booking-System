@@ -2,7 +2,7 @@ package com.app.audienceize.controllers;
 
 import com.app.audienceize.dtos.requests.MovieRequest;
 import com.app.audienceize.enums.Genre;
-import com.app.audienceize.services.MovieService;
+import com.app.audienceize.services.interfaces.MovieService;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,8 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @WebMvcTest(MovieRestController.class)
 class MovieRestControllerTest {

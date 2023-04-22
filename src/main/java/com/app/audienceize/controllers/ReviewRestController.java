@@ -2,7 +2,7 @@ package com.app.audienceize.controllers;
 
 import com.app.audienceize.dtos.requests.ReviewRequest;
 import com.app.audienceize.dtos.responses.ReviewResponse;
-import com.app.audienceize.services.ReviewService;
+import com.app.audienceize.services.interfaces.ReviewService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class ReviewRestController {
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
     @GetMapping
-    public ResponseEntity<List<?>> getTop5ReviewsForMovie(@RequestParam(name = "title") String title) {
+    public ResponseEntity<List<ReviewResponse>> getTop5ReviewsForMovie(@RequestParam(name = "title") String title) {
         List<ReviewResponse> responses = reviewService.getTop5ReviewsByMovieTitle(title);
         return ResponseEntity.ok(responses);
     }

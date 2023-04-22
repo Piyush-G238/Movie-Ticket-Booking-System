@@ -29,9 +29,4 @@ public class ShowRestController {
         List<ShowResponse> responses = showService.getShowsByTheatre(name);
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
-
-    @GetMapping("/movies")
-    public ResponseEntity<?> getShowsByMovieNameAndCity(@RequestParam("name") String name, @RequestParam("city") String city) {
-        return null;
-    }
 }

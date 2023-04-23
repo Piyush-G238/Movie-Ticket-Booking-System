@@ -12,14 +12,14 @@ import java.util.function.Function;
 @Component
 public class JwtAuthService {
 
-    private static final String SECRET = "5YexcpvTr-OLRtf-zruHtfdCmHXph3qMXoBhlloX";
+    private static final String SECRET_KEY = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
 
     private Claims getAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
@@ -32,7 +32,7 @@ public class JwtAuthService {
         return this.extractClaims(jwtToken, Claims::getSubject);
     }
     private Key getSigningKey() {
-        byte[] keyByte = Decoders.BASE64.decode(SECRET);
-        return Keys.hmacShaKeyFor(keyByte);
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

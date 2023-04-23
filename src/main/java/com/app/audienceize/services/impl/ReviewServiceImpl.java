@@ -4,9 +4,9 @@ import com.app.audienceize.dtos.requests.ReviewRequest;
 import com.app.audienceize.dtos.responses.ReviewResponse;
 import com.app.audienceize.entities.Movie;
 import com.app.audienceize.entities.Review;
+import com.app.audienceize.services.interfaces.ReviewService;
 import com.app.audienceize.repositories.MovieRepository;
 import com.app.audienceize.repositories.ReviewRepository;
-import com.app.audienceize.services.interfaces.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

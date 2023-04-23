@@ -7,11 +7,10 @@ import com.app.audienceize.dtos.responses.TheatreResponse;
 import com.app.audienceize.entities.Movie;
 import com.app.audienceize.entities.Show;
 import com.app.audienceize.entities.Theatre;
+import com.app.audienceize.services.interfaces.ShowService;
 import com.app.audienceize.repositories.MovieRepository;
 import com.app.audienceize.repositories.ShowRepository;
 import com.app.audienceize.repositories.TheatreRepository;
-import com.app.audienceize.services.interfaces.ShowService;
-import com.app.audienceize.services.interfaces.TheatreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

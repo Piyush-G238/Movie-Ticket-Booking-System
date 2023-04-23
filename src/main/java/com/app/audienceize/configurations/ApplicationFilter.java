@@ -46,7 +46,7 @@ public class ApplicationFilter extends OncePerRequestFilter {
             boolean isTokenValid = generator.validateJwtToken(JWT_TOKEN, currentUser);
             if (isTokenValid) {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(currentUser,
-                        null, currentUser.getAuthorities());
+                       null, currentUser.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }

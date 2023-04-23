@@ -29,7 +29,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(this.role.toString().split(",")).map(SimpleGrantedAuthority::new)
+        return Arrays.stream(new String[]{role.toString()}).map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 

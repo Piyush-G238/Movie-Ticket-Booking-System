@@ -4,11 +4,11 @@ import com.app.audienceize.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -31,12 +31,15 @@ public class ApplicationSecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/signup/**")
-                .permitAll()
+                .requestMatchers("/signup/**", "/login/**").permitAll()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/login/**")
-                .permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/movies/**", "/api/v1/shows/**", "/api/v1/theatres/**")
+                .hasAuthority("ADMIN")
+                .and()
+                .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/movies/**", "/api/v1/shows/**", "/api/v1/shows/**")
+                .hasAuthority("ADMIN")
                 .and()
                 .authorizeHttpRequests()
                 .anyRequest()

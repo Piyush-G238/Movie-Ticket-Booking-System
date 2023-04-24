@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,4 +34,7 @@ public class Show {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "theatre_id")
     private Theatre theatre;
+
+    @OneToMany(mappedBy = "show")
+    private List<ShowSeat> seats;
 }

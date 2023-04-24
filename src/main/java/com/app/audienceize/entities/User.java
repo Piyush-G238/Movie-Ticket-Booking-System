@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 @Getter
 @Setter
@@ -27,6 +28,11 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
+
+    @OneToMany(mappedBy = "user")
+    private List<Ticket> tickets;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.stream(new String[]{role.toString()}).map(SimpleGrantedAuthority::new)

@@ -4,7 +4,7 @@ import com.app.audienceize.dtos.requests.MovieRequest;
 import com.app.audienceize.dtos.responses.MovieResponse;
 import com.app.audienceize.entities.Movie;
 import com.app.audienceize.enums.Genre;
-import com.app.audienceize.repositories.MovieRepository;
+import com.app.audienceize.controllers.repositories.MovieRepository;
 import com.app.audienceize.services.interfaces.MovieService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;

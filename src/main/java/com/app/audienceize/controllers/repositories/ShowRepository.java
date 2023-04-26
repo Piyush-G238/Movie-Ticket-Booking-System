@@ -1,4 +1,4 @@
-package com.app.audienceize.repositories;
+package com.app.audienceize.controllers.repositories;
 
 import com.app.audienceize.entities.Show;
 import com.app.audienceize.entities.Theatre;

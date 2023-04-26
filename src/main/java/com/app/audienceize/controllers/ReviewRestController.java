@@ -45,6 +45,7 @@ public class ReviewRestController {
     }
     @GetMapping
     public ResponseEntity<List<ReviewResponse>> listAllReviewsOfLoggedUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String bearer) {
-        return null;
+        String username = jwtAuthService.extractUsername(bearer.substring(7));
+        return ResponseEntity.ok(reviewService.getAllReviewsOfLoggedUser(username));
     }
 }

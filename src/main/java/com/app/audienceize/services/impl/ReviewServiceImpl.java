@@ -5,10 +5,10 @@ import com.app.audienceize.dtos.responses.ReviewResponse;
 import com.app.audienceize.entities.Movie;
 import com.app.audienceize.entities.Review;
 import com.app.audienceize.entities.User;
-import com.app.audienceize.repositories.UserRepository;
+import com.app.audienceize.controllers.repositories.UserRepository;
 import com.app.audienceize.services.interfaces.ReviewService;
-import com.app.audienceize.repositories.MovieRepository;
-import com.app.audienceize.repositories.ReviewRepository;
+import com.app.audienceize.controllers.repositories.MovieRepository;
+import com.app.audienceize.controllers.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,6 +95,9 @@ public class ReviewServiceImpl implements ReviewService {
     public List<ReviewResponse> getAllReviewsOfLoggedUser(String username) {
         User user = userRepository.findByEmailId(username).get();
         List<Review> userReviews = reviewRepository.findByUser(user);
+        if (userReviews.size() == 0) {
+            throw new NoSuchElementException("current user has not posted any comments");
+        }
         return userReviews.stream().map(this::toResponse).toList();
     }
 

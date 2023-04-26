@@ -4,7 +4,7 @@ import com.app.audienceize.dtos.requests.UserRequest;
 import com.app.audienceize.entities.User;
 import com.app.audienceize.helper.JwtTokenGenerator;
 import com.app.audienceize.services.interfaces.UserService;
-import com.app.audienceize.repositories.UserRepository;
+import com.app.audienceize.controllers.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

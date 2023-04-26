@@ -27,6 +27,9 @@ public class ShowSeat {
     @Enumerated(EnumType.STRING)
     private SeatType seatType;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
     @ManyToOne
     @JoinColumn(name = "show_id")
     private Show show;

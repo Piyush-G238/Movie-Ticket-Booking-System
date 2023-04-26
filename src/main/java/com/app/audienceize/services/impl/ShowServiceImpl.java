@@ -1,5 +1,6 @@
 package com.app.audienceize.services.impl;
 
+import com.app.audienceize.controllers.repositories.ShowSeatRepository;
 import com.app.audienceize.dtos.requests.ShowRequest;
 import com.app.audienceize.dtos.responses.MovieResponse;
 import com.app.audienceize.dtos.responses.ShowResponse;
@@ -7,13 +8,14 @@ import com.app.audienceize.dtos.responses.TheatreResponse;
 import com.app.audienceize.entities.*;
 import com.app.audienceize.enums.SeatType;
 import com.app.audienceize.services.interfaces.ShowService;
-import com.app.audienceize.repositories.MovieRepository;
-import com.app.audienceize.repositories.ShowRepository;
-import com.app.audienceize.repositories.TheatreRepository;
+import com.app.audienceize.controllers.repositories.MovieRepository;
+import com.app.audienceize.controllers.repositories.ShowRepository;
+import com.app.audienceize.controllers.repositories.TheatreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -29,6 +31,8 @@ public class ShowServiceImpl implements ShowService {
     @Autowired
     private TheatreRepository theatreRepository;
 
+    @Autowired
+    private ShowSeatRepository showSeatRepository;
     @Override
     public String addShow(ShowRequest showRequest) {
         Show show = toEntity(showRequest);
@@ -44,6 +48,7 @@ public class ShowServiceImpl implements ShowService {
         for (ShowSeat seatEntity : showSeats) {
             seatEntity.setShow(show);
         }
+        show.setSeats(showSeats);
         showRepository.save(show);
         return "New show timing (" + showRequest.getTiming() + ") has been for movie " + showRequest.getMovieTitle() + " running at " + showRequest.getTheatreName();
     }
@@ -69,6 +74,7 @@ public class ShowServiceImpl implements ShowService {
     private Show toEntity(ShowRequest showRequest) {
         return Show.builder()
                 .showId(UUID.randomUUID().toString())
+                .createdAt(new Date())
                 .timing(LocalTime.parse(showRequest.getTiming()))
                 .build();
     }

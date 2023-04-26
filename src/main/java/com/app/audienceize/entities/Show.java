@@ -35,6 +35,6 @@ public class Show {
     @JoinColumn(name = "theatre_id")
     private Theatre theatre;
 
-    @OneToMany(mappedBy = "show")
+    @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
     private List<ShowSeat> seats;
 }

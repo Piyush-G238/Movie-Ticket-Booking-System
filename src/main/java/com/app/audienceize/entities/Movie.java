@@ -29,6 +29,7 @@ public class Movie {
 
     private LocalDate releasedOn;
 
+    private Long length;
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Review> reviews;
 

@@ -31,7 +31,7 @@ public class Review {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private User user;
 }

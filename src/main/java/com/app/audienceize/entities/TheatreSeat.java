@@ -2,13 +2,15 @@ package com.app.audienceize.entities;
 
 import com.app.audienceize.enums.SeatType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "theatre_seat")
+@NoArgsConstructor
+@AllArgsConstructor
 public class TheatreSeat {
     @Id
     private String theatreSeatId;

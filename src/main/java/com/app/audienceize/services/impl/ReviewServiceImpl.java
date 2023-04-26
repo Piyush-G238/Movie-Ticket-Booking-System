@@ -4,6 +4,8 @@ import com.app.audienceize.dtos.requests.ReviewRequest;
 import com.app.audienceize.dtos.responses.ReviewResponse;
 import com.app.audienceize.entities.Movie;
 import com.app.audienceize.entities.Review;
+import com.app.audienceize.entities.User;
+import com.app.audienceize.repositories.UserRepository;
 import com.app.audienceize.services.interfaces.ReviewService;
 import com.app.audienceize.repositories.MovieRepository;
 import com.app.audienceize.repositories.ReviewRepository;
@@ -22,14 +24,17 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private UserRepository userRepository;
     @Override
-    public String addReview(ReviewRequest request) {
+    public String addReview(ReviewRequest request, String username) {
         if (movieRepository.existsByTitle(request.getMovieTitle())){
             Review review = toEntity(request);
             Movie movie = movieRepository.findByTitle(review.getMovieTitle()).orElseThrow(() -> new NoSuchElementException("Movie with given title currently not available"));
+            User user = userRepository.findByEmailId(username).get();
             movie.addReview(review);
             review.setMovie(movie);
-
+            review.setUser(user);
             List<Review> reviews = movie.getReviews();
             Double sum = 0.0;
             for (Review r: reviews) {
@@ -84,6 +89,13 @@ public class ReviewServiceImpl implements ReviewService {
         }
         else
             throw new NoSuchElementException("This review is not available");
+    }
+
+    @Override
+    public List<ReviewResponse> getAllReviewsOfLoggedUser(String username) {
+        User user = userRepository.findByEmailId(username).get();
+        List<Review> userReviews = reviewRepository.findByUser(user);
+        return userReviews.stream().map(this::toResponse).toList();
     }
 
     private Review toEntity(ReviewRequest request) {

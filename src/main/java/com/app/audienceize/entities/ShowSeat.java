@@ -2,16 +2,18 @@ package com.app.audienceize.entities;
 
 import com.app.audienceize.enums.SeatType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "show_seats")
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShowSeat {
     @Id
     private String showSeatId;

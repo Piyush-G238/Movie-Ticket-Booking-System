@@ -3,12 +3,16 @@ package com.app.audienceize.services.impl;
 import com.app.audienceize.dtos.requests.TheatreRequest;
 import com.app.audienceize.dtos.responses.TheatreResponse;
 import com.app.audienceize.entities.Theatre;
+import com.app.audienceize.entities.TheatreSeat;
+import com.app.audienceize.enums.SeatType;
+import com.app.audienceize.repositories.TheatreSeatRepository;
 import com.app.audienceize.services.interfaces.TheatreService;
 import com.app.audienceize.repositories.TheatreRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -18,9 +22,15 @@ public class TheatreServiceImpl implements TheatreService {
     @Autowired
     private TheatreRepository theatreRepository;
 
+    @Autowired
+    private TheatreSeatRepository seatRepository;
     @Override
     public String addTheatre(TheatreRequest request) {
         Theatre theatre = toEntity(request);
+        theatre.getTheatreSeats().addAll(getTheatreSeats());
+        for (TheatreSeat seat: theatre.getTheatreSeats()) {
+            seat.setTheatre(theatre);
+        }
         theatreRepository.save(theatre);
         return "Theatre has been added to application";
     }
@@ -60,5 +70,30 @@ public class TheatreServiceImpl implements TheatreService {
                 .city(theatre.getCity())
                 .address(theatre.getAddress())
                 .build();
+    }
+
+    private TheatreSeat getTheatreSeat(String seatNo, SeatType type) {
+        return TheatreSeat.builder()
+                .theatreSeatId(UUID.randomUUID().toString())
+                .seatNumber(seatNo)
+                .seatType(type)
+                .build();
+    }
+
+    private List<TheatreSeat> getTheatreSeats() {
+        List<TheatreSeat> seats = new ArrayList<>();
+        seats.add(getTheatreSeat("1A", SeatType.REGULAR));
+        seats.add(getTheatreSeat("1B", SeatType.REGULAR));
+        seats.add(getTheatreSeat("1C", SeatType.REGULAR));
+        seats.add(getTheatreSeat("1D", SeatType.REGULAR));
+        seats.add(getTheatreSeat("1E", SeatType.REGULAR));
+
+        seats.add(getTheatreSeat("2A", SeatType.RECLINER));
+        seats.add(getTheatreSeat("2B", SeatType.RECLINER));
+        seats.add(getTheatreSeat("2C", SeatType.RECLINER));
+        seats.add(getTheatreSeat("2D", SeatType.RECLINER));
+        seats.add(getTheatreSeat("2E", SeatType.RECLINER));
+        seats = seatRepository.saveAll(seats);
+        return seats;
     }
 }

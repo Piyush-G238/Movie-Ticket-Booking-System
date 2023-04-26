@@ -4,9 +4,8 @@ import com.app.audienceize.dtos.requests.ShowRequest;
 import com.app.audienceize.dtos.responses.MovieResponse;
 import com.app.audienceize.dtos.responses.ShowResponse;
 import com.app.audienceize.dtos.responses.TheatreResponse;
-import com.app.audienceize.entities.Movie;
-import com.app.audienceize.entities.Show;
-import com.app.audienceize.entities.Theatre;
+import com.app.audienceize.entities.*;
+import com.app.audienceize.enums.SeatType;
 import com.app.audienceize.services.interfaces.ShowService;
 import com.app.audienceize.repositories.MovieRepository;
 import com.app.audienceize.repositories.ShowRepository;
@@ -41,6 +40,10 @@ public class ShowServiceImpl implements ShowService {
 
         show.setMovie(movie);
         show.setTheatre(theatre);
+        List<ShowSeat> showSeats = theatre.getTheatreSeats().stream().map(this::getShowSeat).toList();
+        for (ShowSeat seatEntity : showSeats) {
+            seatEntity.setShow(show);
+        }
         showRepository.save(show);
         return "New show timing (" + showRequest.getTiming() + ") has been for movie " + showRequest.getMovieTitle() + " running at " + showRequest.getTheatreName();
     }
@@ -98,5 +101,19 @@ public class ShowServiceImpl implements ShowService {
                 .genre(movie.getGenre())
                 .releasedOn(movie.getReleasedOn())
                 .build();
+    }
+
+    private ShowSeat getShowSeat(TheatreSeat seat) {
+        ShowSeat showSeat = ShowSeat.builder()
+                .showSeatId(UUID.randomUUID().toString())
+                .seatNumber(seat.getSeatNumber())
+                .seatType(seat.getSeatType())
+                .build();
+        if(seat.getSeatType() == SeatType.REGULAR){
+            showSeat.setRate(251.50);
+        } else if (seat.getSeatType() == SeatType.RECLINER) {
+            showSeat.setRate(400.50);
+        }
+        return showSeat;
     }
 }

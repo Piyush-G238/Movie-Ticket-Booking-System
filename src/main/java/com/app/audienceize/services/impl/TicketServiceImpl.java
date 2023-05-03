@@ -4,9 +4,11 @@ import com.app.audienceize.controllers.repositories.ShowRepository;
 import com.app.audienceize.controllers.repositories.TicketRepository;
 import com.app.audienceize.controllers.repositories.UserRepository;
 import com.app.audienceize.dtos.requests.TicketRequest;
+import com.app.audienceize.dtos.responses.TicketResponse;
 import com.app.audienceize.entities.Show;
 import com.app.audienceize.entities.ShowSeat;
 import com.app.audienceize.entities.Ticket;
+import com.app.audienceize.entities.User;
 import com.app.audienceize.services.interfaces.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,9 +63,24 @@ public class TicketServiceImpl implements TicketService {
         return "Hi, your tickets are booked successfully enjoy the show.";
     }
 
+    @Override
+    public List<TicketResponse> getPreviousTickets(String username) {
+        User user = userRepository.findByEmailId(username).get();
+        List<Ticket> ticketList = ticketRepository.findByUser(user);
+        return ticketList.stream().map(this::ticketResponse).toList();
+    }
+
     public Ticket toEntity(TicketRequest request) {
         return Ticket.builder()
                 .ticketId(UUID.randomUUID().toString())
+                .build();
+    }
+    public TicketResponse ticketResponse(Ticket ticket){
+        return TicketResponse.builder()
+                .ticketId(ticket.getTicketId())
+                .allotedSeat(ticket.getAllotedSeat())
+                .amount(ticket.getAmount())
+                .bookedAt(ticket.getBookedAt())
                 .build();
     }
 }

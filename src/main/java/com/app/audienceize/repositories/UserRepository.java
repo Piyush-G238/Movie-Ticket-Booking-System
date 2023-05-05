@@ -1,4 +1,4 @@
-package com.app.audienceize.controllers.repositories;
+package com.app.audienceize.repositories;
 
 import com.app.audienceize.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

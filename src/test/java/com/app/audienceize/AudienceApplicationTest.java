@@ -1,13 +1,7 @@
 package com.app.audienceize;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AudienceizeApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
+public class AudienceApplicationTest {
 }

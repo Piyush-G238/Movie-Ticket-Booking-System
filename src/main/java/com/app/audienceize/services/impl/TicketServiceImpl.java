@@ -1,8 +1,8 @@
 package com.app.audienceize.services.impl;
 
-import com.app.audienceize.controllers.repositories.ShowRepository;
-import com.app.audienceize.controllers.repositories.TicketRepository;
-import com.app.audienceize.controllers.repositories.UserRepository;
+import com.app.audienceize.repositories.ShowRepository;
+import com.app.audienceize.repositories.TicketRepository;
+import com.app.audienceize.repositories.UserRepository;
 import com.app.audienceize.dtos.requests.TicketRequest;
 import com.app.audienceize.dtos.responses.TicketResponse;
 import com.app.audienceize.entities.Show;

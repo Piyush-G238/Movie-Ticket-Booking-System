@@ -1,4 +1,4 @@
-package com.app.audienceize.controllers.repositories;
+package com.app.audienceize.repositories;
 
 import com.app.audienceize.entities.Review;
 import com.app.audienceize.entities.User;

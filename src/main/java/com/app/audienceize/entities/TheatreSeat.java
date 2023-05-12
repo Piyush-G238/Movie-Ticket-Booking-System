@@ -1,6 +1,7 @@
 package com.app.audienceize.entities;
 
 import com.app.audienceize.enums.SeatType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,5 +22,15 @@ public class TheatreSeat {
 
     @ManyToOne
     @JoinColumn(name = "theatre_id")
+    @JsonIgnore
     private Theatre theatre;
+
+    @Override
+    public String toString() {
+        return "TheatreSeat{" +
+                "theatreSeatId='" + theatreSeatId + '\'' +
+                ", seatNumber='" + seatNumber + '\'' +
+                ", seatType=" + seatType +
+                '}';
+    }
 }

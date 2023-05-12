@@ -1,4 +1,15 @@
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: coder.py28@gmail.com
+    password: uzznvkfzhsiaiwbi
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   datasource:
     url: jdbc:postgresql://localhost:5433/testdb
     driver-class-name: org.postgresql.Driver

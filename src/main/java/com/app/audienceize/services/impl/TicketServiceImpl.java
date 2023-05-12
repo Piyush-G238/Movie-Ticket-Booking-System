@@ -1,16 +1,19 @@
 package com.app.audienceize.services.impl;
 
-import com.app.audienceize.repositories.ShowRepository;
-import com.app.audienceize.repositories.TicketRepository;
-import com.app.audienceize.repositories.UserRepository;
 import com.app.audienceize.dtos.requests.TicketRequest;
+import com.app.audienceize.dtos.responses.TicketMessage;
 import com.app.audienceize.dtos.responses.TicketResponse;
 import com.app.audienceize.entities.Show;
 import com.app.audienceize.entities.ShowSeat;
 import com.app.audienceize.entities.Ticket;
 import com.app.audienceize.entities.User;
+import com.app.audienceize.repositories.ShowRepository;
+import com.app.audienceize.repositories.TicketRepository;
+import com.app.audienceize.repositories.UserRepository;
 import com.app.audienceize.services.interfaces.TicketService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -26,23 +29,28 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    private final ObjectMapper mapper = new ObjectMapper();
+
     @Override
     public String bookTickets(TicketRequest request, String username) {
         String showId = request.getShowId();
-        Show requiredShow = showRepository.findById(showId).orElseThrow(()->new NoSuchElementException("Invalid showId is mentioned. Please try again"));
+        Show requiredShow = showRepository.findById(showId).orElseThrow(() -> new NoSuchElementException("Invalid showId is mentioned. Please try again"));
         List<ShowSeat> requiredSeats = requiredShow.getSeats();
         List<ShowSeat> filteredSeat = requiredSeats.stream().filter(seat -> {
             return !seat.isBooked() && request.getSeatNumbers().contains(seat.getSeatNumber());
         }).toList();
-        if (filteredSeat.size() != request.getSeatNumbers().size()){
+        if (filteredSeat.size() != request.getSeatNumbers().size()) {
             throw new NoSuchElementException("Seats are not available for bookings");
         }
         Ticket ticket = toEntity(request);
         Double amount = 0.0;
         String allotedSeats = "";
-        for (ShowSeat seat: filteredSeat) {
+        for (ShowSeat seat : filteredSeat) {
             amount += seat.getRate();
-            allotedSeats += seat.getSeatNumber()+" ";
+            allotedSeats += seat.getSeatNumber() + " ";
         }
         ticket.setAmount(amount);
         ticket.setAllotedSeat(allotedSeats);
@@ -51,7 +59,7 @@ public class TicketServiceImpl implements TicketService {
         Iterator<ShowSeat> showSeatItr = requiredSeats.iterator();
         while (showSeatItr.hasNext()) {
             ShowSeat seat = showSeatItr.next();
-            if (filteredSeat.contains(seat)){
+            if (filteredSeat.contains(seat)) {
                 seat.setBooked(true);
                 seat.setBookedAt(new Date());
                 seat.setTicket(ticket);
@@ -60,7 +68,18 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.save(ticket);
         requiredShow.setSeats(requiredSeats);
         showRepository.save(requiredShow);
-        return "Hi, your tickets are booked successfully enjoy the show.";
+        try {
+            TicketMessage message = TicketMessage.builder()
+                    .email(username)
+                    .message("Tickets booked successfully. Ticket ID : " + ticket.getTicketId())
+                    .show(requiredShow)
+                    .seats(filteredSeat)
+                    .build();
+            kafkaTemplate.send("ticket_notifications", "notification",mapper.writeValueAsString(message));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "Your tickets are booked successfully. Here is your ticket ID : " + ticket.getTicketId();
     }
 
     @Override
@@ -75,7 +94,8 @@ public class TicketServiceImpl implements TicketService {
                 .ticketId(UUID.randomUUID().toString())
                 .build();
     }
-    public TicketResponse ticketResponse(Ticket ticket){
+
+    public TicketResponse ticketResponse(Ticket ticket) {
         return TicketResponse.builder()
                 .ticketId(ticket.getTicketId())
                 .allotedSeat(ticket.getAllotedSeat())

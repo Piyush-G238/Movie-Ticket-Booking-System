@@ -1,6 +1,7 @@
 package com.app.audienceize.entities;
 
 import com.app.audienceize.enums.SeatType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -29,8 +30,21 @@ public class ShowSeat {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ticket_id")
+    @JsonIgnore
     private Ticket ticket;
     @ManyToOne
     @JoinColumn(name = "show_id")
+    @JsonIgnore
     private Show show;
+
+    @Override
+    public String toString() {
+        return "ShowSeat{" +
+                "showSeatId='" + showSeatId + '\'' +
+                ", seatNumber='" + seatNumber + '\'' +
+                ", rate=" + rate +
+                ", bookedAt=" + bookedAt +
+                ", seatType=" + seatType +
+                '}';
+    }
 }

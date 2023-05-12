@@ -1,9 +1,9 @@
 package com.app.audienceize.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,8 +22,20 @@ public class Theatre {
     private String address;
 
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Show> shows;
 
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<TheatreSeat> theatreSeats;
+
+    @Override
+    public String toString() {
+        return "Theatre{" +
+                "theatreId='" + theatreId + '\'' +
+                ", theatreName='" + theatreName + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

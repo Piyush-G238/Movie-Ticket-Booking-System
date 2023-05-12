@@ -61,6 +61,7 @@ public class MovieServiceImpl implements MovieService {
                 .movieId(UUID.randomUUID().toString())
                 .title(req.getTitle())
                 .genre(req.getGenre())
+                .length(req.getLength())
                 .releasedOn(LocalDate.parse(req.getReleasedOn()))
                 .build();
     }

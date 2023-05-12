@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://moviedb.cqdlqurcv0yc.us-east-1.rds.amazonaws.com:5432/moviedb
+    username: postgres
+    password: hH&qeV%y12
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      database: postgresql
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: coder.py28@gmail.com
+    password: uzznvkfzhsiaiwbi
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  main:
+    allow-circular-references: true

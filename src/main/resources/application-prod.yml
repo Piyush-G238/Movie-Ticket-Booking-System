@@ -23,3 +23,5 @@ spring:
             enable: true
   main:
     allow-circular-references: true
+server:
+  port: 5000

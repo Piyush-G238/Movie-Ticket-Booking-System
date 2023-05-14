@@ -24,7 +24,4 @@ public class UserRequest {
     @Pattern(regexp = "^\\d{10}$", message = "PhoneNo. should be of 10 digits only")
     @NotEmpty(message = "Phone number should be there in order to create account")
     private String phoneNo;
-
-    @NotNull(message = "Role should be there in order to create account")
-    private Role role;
 }

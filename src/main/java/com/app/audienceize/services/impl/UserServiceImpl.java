@@ -2,6 +2,7 @@ package com.app.audienceize.services.impl;
 
 import com.app.audienceize.dtos.requests.UserRequest;
 import com.app.audienceize.entities.User;
+import com.app.audienceize.enums.Role;
 import com.app.audienceize.helper.JwtTokenGenerator;
 import com.app.audienceize.services.interfaces.UserService;
 import com.app.audienceize.repositories.UserRepository;
@@ -56,7 +57,7 @@ public class UserServiceImpl implements UserService {
                 .emailId(request.getEmail())
                 .password(encoder.encode(request.getPassword()))
                 .mobile(request.getPhoneNo())
-                .role(request.getRole())
+                .role(Role.USER)
                 .build();
     }
 

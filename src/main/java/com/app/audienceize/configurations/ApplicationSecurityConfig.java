@@ -34,6 +34,20 @@ public class ApplicationSecurityConfig {
                 .requestMatchers("/signup/**", "/login/**").permitAll()
                 .and()
                 .authorizeHttpRequests()
+                .requestMatchers("/",
+                        "/swagger-ui/**",
+                        "/v2/api-docs",
+                        "/v3/api-docs",
+                        "/v3/api-docs/**",
+                        "/swagger-resources",
+                        "/swagger-resources/**",
+                        "/configuration/ui",
+                        "/configuration/security",
+                        "/webjars/**",
+                        "/swagger-ui.html"
+                ).permitAll()
+                .and()
+                .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/api/v1/movies/**", "/api/v1/shows/**", "/api/v1/theatres/**")
                 .hasAuthority("ADMIN")
                 //.permitAll()

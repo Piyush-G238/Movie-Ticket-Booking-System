@@ -31,8 +31,8 @@ public class ReviewRestController {
 
     @Operation(
             method = "POST",
-            description = "This URI will create a review for particular movie",
-            summary = "This URI will create a review for particular movie",
+            description = "Endpoint for creating a review for particular movie",
+            summary = "Endpoint for creating a review for particular movie",
             parameters = {@Parameter(name = "", description = "No parameters required", required = false)},
             responses = {
                     @ApiResponse(
@@ -61,8 +61,8 @@ public class ReviewRestController {
 
     @Operation(
             method = "GET",
-            description = "This endpoint will fetch top five reviews for a particular movie sorted by its rating.",
-            summary = "This endpoint will fetch top five reviews for a particular movie",
+            description = "Endpoint for fetching top five reviews for a particular movie sorted by its rating.",
+            summary = "Endpoint for fetching top five reviews for a particular movie",
             parameters = {
                     @Parameter(
                             name = "name",

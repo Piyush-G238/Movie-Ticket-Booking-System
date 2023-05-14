@@ -36,8 +36,8 @@ public class MovieRestController {
     @PostMapping
     @Operation(
             method = "POST",
-            description = "This URI will create a new Movie Resource in the application",
-            summary = "This URI will create a new Movie Resource in the application",
+            description = "Endpoint for creating a new Movie in the application",
+            summary = "Endpoint for creating a new Movie in the application",
             responses = {
                     @ApiResponse(
                             responseCode = "201",
@@ -65,8 +65,8 @@ public class MovieRestController {
 
     @Operation(
             method = "GET",
-            description = "This URI will fetch movie resource by movie title",
-            summary = "This URI will fetch movie resource by movie title",
+            description = "Endpoint for fetching movie by movie title",
+            summary = "Endpoint for fetching movie by movie title",
             parameters = {
                     @Parameter(
                             name = "title",
@@ -108,6 +108,8 @@ public class MovieRestController {
 
     @Operation(
             method = "GET",
+            description = "Endpoint for fetching all the movies by its Genre",
+            summary = "Endpoint for fetching all the movies by its Genre",
             parameters = {
                     @Parameter(
                             name = "name",
@@ -125,14 +127,16 @@ public class MovieRestController {
                                             examples = {
                                                     @ExampleObject(
                                                             value = """
-                                                                    {
-                                                                      "id":"b110caf1-b0e5-47cb-8c83-8f47bd54586f",
-                                                                      "title":"The Avengers Endgame",
-                                                                      "genre":"SCI_FI",
-                                                                      "rating":4.5,
-                                                                      "releasedOn":"2023-05-11",
-                                                                      "length":150
-                                                                    }
+                                                                    [
+                                                                      {
+                                                                        "id":"b110caf1-b0e5-47cb-8c83-8f47bd54586f",
+                                                                        "title":"The Avengers Endgame",
+                                                                        "genre":"SCI_FI",
+                                                                        "rating":4.5,
+                                                                        "releasedOn":"2023-05-11",
+                                                                        "length":150
+                                                                      }
+                                                                    ]
                                                                     """
                                                     )
                                             }
@@ -151,6 +155,8 @@ public class MovieRestController {
 
     @Operation(
             method = "DELETE",
+            description = "Endpoint for deleting movie by its movieTitle",
+            summary = "Endpoint for deleting movie by its movieTitle",
             parameters = {
                     @Parameter(
                             name = "title",

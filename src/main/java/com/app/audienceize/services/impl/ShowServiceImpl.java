@@ -51,7 +51,7 @@ public class ShowServiceImpl implements ShowService {
         }
         show.setSeats(showSeats);
         showRepository.save(show);
-        return "New show timing (" + showRequest.getTiming() + ") has been for movie " + showRequest.getMovieTitle() + " running at " + showRequest.getTheatreName();
+        return "New show timing (" + showRequest.getTiming() + ") has been added for movie " + showRequest.getMovieTitle() + " running at " + showRequest.getTheatreName();
     }
 
     @Override
@@ -107,6 +107,7 @@ public class ShowServiceImpl implements ShowService {
                 .rating(movie.getRatings())
                 .genre(movie.getGenre())
                 .releasedOn(movie.getReleasedOn())
+                .length(movie.getLength())
                 .build();
     }
 

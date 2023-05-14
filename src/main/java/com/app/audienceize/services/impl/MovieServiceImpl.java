@@ -36,7 +36,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieResponse getMovieByTitle(String title) {
-        Movie movie = movieRepository.findByTitle(title).orElseThrow(NoSuchElementException::new);
+        Movie movie = movieRepository.findByTitle(title).orElseThrow(()-> new NoSuchElementException("There is no such movie with this title: "+ title));
         return toResponse(movie);
     }
 

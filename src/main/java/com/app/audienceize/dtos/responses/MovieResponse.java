@@ -14,4 +14,5 @@ public class MovieResponse {
     private Genre genre;
     private Double rating;
     private LocalDate releasedOn;
+    private Long length;
 }

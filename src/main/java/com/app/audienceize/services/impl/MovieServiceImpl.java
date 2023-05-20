@@ -72,6 +72,7 @@ public class MovieServiceImpl implements MovieService {
                 .title(movie.getTitle())
                 .genre(movie.getGenre())
                 .rating(movie.getRatings())
+                .length(movie.getLength())
                 .releasedOn(movie.getReleasedOn())
                 .build();
     }

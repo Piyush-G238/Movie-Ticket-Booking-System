@@ -9,5 +9,4 @@ public class AudienceizeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AudienceizeApplication.class, args);
 	}
-
 }

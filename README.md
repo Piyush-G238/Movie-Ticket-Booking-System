@@ -14,5 +14,3 @@ Technical features of the application:
 1. Application written in layered manner, means business logic and persistent logic is written as seperate module.
 2. Authentication for users will be happening through JWT Authentication, and Authorization mechanism will be happening through Spring security.
 3. Email notification to the user will be sent using Java mail sender API and Apache Kafka.
-
-Application is currently running on: http://mymovieshow.us-east-1.elasticbeanstalk.com
